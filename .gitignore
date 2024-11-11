@@ -1,0 +1,9 @@
+# Backend
+backend/node_modules/
+backend/.env/
+
+# Database
+database
+compose.yaml
+
+

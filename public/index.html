@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pastebin UI - User Features</title>
+  <link href="tailwind-output.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+    <!-- Register Form -->
+    <div id="register-form" class="hidden">
+      <h2 class="text-2xl font-semibold text-center mb-4">Register</h2>
+      <form onsubmit="registerUser(event)">
+        <input type="text" id="register-username" placeholder="Username" class="w-full p-2 border rounded mb-4" required>
+        <input type="email" id="register-email" placeholder="Email" class="w-full p-2 border rounded mb-4" required>
+        <input type="password" id="register-password" placeholder="Password" class="w-full p-2 border rounded mb-4" required>
+        <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Register</button>
+        <p class="text-sm text-center mt-4">Already have an account? <a href="#" onclick="toggleForms()" class="text-blue-500">Login</a></p>
+      </form>
+    </div>
+
+    <!-- Login Form -->
+    <div id="login-form">
+      <h2 class="text-2xl font-semibold text-center mb-4">Login</h2>
+      <form onsubmit="loginUser(event)">
+        <input type="text" id="login-username" placeholder="Username" class="w-full p-2 border rounded mb-4" required>
+        <input type="password" id="login-password" placeholder="Password" class="w-full p-2 border rounded mb-4" required>
+        <button type="submit" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">Login</button>
+        <p class="text-sm text-center mt-4">Don't have an account? <a href="#" onclick="toggleForms()" class="text-blue-500">Register</a></p>
+      </form>
+    </div>
+
+    <!-- Profile Section -->
+    <div id="profile-section" class="hidden text-center">
+      <h2 class="text-2xl font-semibold mb-4">Profile</h2>
+      <p id="profile-username" class="text-lg"></p>
+      <button onclick="logout()" class="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</button>
+    </div>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
