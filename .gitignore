@@ -4,6 +4,4 @@ backend/.env/
 
 # Database
 database
-compose.yaml
-
-
+compose.yaml".env" 
