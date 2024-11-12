@@ -1,3 +1,5 @@
+node_modules/
+
 # Backend
 backend/node_modules/
 backend/.env/
@@ -5,3 +7,4 @@ backend/.env/
 # Database
 database
 compose.yaml".env" 
+".env" 
