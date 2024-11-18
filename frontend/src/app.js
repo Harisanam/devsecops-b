@@ -1,30 +1,41 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import Dashboard from './pages/dashboard';
+import GuestDashboard from './pages/GuestDashboard';
 import Login from './pages/login';
 import Register from './pages/register';
 import Profile from './pages/profile';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Clear user session (e.g., clear local storage or authentication token)
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('token');
     setIsAuthenticated(false);
+    window.location.href = '/';
   };
-
+  
   return (
-    <Router>
+    <>
+      <Navbar isAuthenticated={isAuthenticated} onLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={isAuthenticated ? <Dashboard onLogout={handleLogout} /> : <Navigate to="/login" />} />
-        <Route path="/login" element={<Login onLogin={() => setIsAuthenticated(true)} />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
+        <Route path="/" element={isAuthenticated ? <Dashboard /> : <GuestDashboard />} />
+        <Route
+          path="/login"
+          element={isAuthenticated ? <Navigate to="/" /> : <Login onLogin={() => setIsAuthenticated(true)} />}
+        />
+        <Route
+          path="/register"
+          element={isAuthenticated ? <Navigate to="/" /> : <Register />}
+        />
+        <Route
+          path="/profile"
+          element={isAuthenticated ? <Profile /> : <Navigate to="/login" />}
+        />
       </Routes>
-    </Router>
+    </>
   );
 }
 

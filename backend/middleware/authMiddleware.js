@@ -1,5 +1,3 @@
-// backend/middlewares/authMiddleware.js
-
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '../config/config.js';
 
@@ -7,15 +5,18 @@ const authMiddleware = (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
 
   if (!token) {
-    return res.status(401).json({ message: 'Access denied. No token provided.' });
+    console.log('Token tidak ditemukan.');
+    return res.status(401).json({ error: 'Access denied, no token provided' });
   }
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded; // Attach decoded user data to the request object
-    next(); // Continue to the next middleware or route handler
+    req.user = decoded;
+    console.log('Token valid. User ID:', req.user.userId);
+    next();
   } catch (error) {
-    res.status(400).json({ message: 'Invalid token.' });
+    console.error('Token tidak valid:', error.message);
+    res.status(403).json({ error: 'Invalid token' });
   }
 };
 

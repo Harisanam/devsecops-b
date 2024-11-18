@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 
-const SnippetForm = ({ onSubmit }) => {
+const SnippetsForm = ({ onSave }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ title, content });
+
+    // Validasi input
+    if (!title.trim() || !content.trim()) {
+      alert('Both title and content are required!');
+      return;
+    }
+
+    // Kirim data ke fungsi onSave
+    onSave({ title, content });
     setTitle('');
     setContent('');
   };
@@ -44,11 +52,11 @@ const SnippetForm = ({ onSubmit }) => {
           type="submit"
           className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
         >
-          Save Snippet
+          Save Snippets
         </button>
       </form>
     </div>
   );
 };
 
-export default SnippetForm;
+export default SnippetsForm;

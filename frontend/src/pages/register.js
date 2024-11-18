@@ -17,7 +17,7 @@ function Register() {
     }
 
     // Simulasi registrasi, seperti menyimpan data ke server
-    localStorage.setItem('authToken', 'sampleToken123');
+    localStorage.setItem('Token', 'sampleToken123');
     navigate('/dashboard');  // Redirect ke dashboard setelah registrasi
   };
 

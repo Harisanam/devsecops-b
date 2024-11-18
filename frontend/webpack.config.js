@@ -27,6 +27,24 @@ module.exports = {
           'postcss-loader'  // Memastikan postcss-loader digunakan
         ],
       },
+      {
+        test: /\.svg$/,
+        oneOf: [
+          {
+            resourceQuery: /url/, // Jika menggunakan `?url`
+            use: 'file-loader',
+          },
+          {
+            use: '@svgr/webpack',
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i, // Tambahkan dukungan untuk PNG, JPG, dan GIF
+        type: 'asset/resource',
+      },
+      
+      
     ],
   },
   plugins: [
@@ -38,6 +56,6 @@ module.exports = {
   devServer: {
     static: path.resolve(__dirname, 'public'),
     historyApiFallback: true,
-    port: 8082,
+    port: 3001,
   },
 };

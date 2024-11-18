@@ -10,14 +10,20 @@ function Login({ onLogin }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await axios.post('/api/login', { username, password });  // Memanfaatkan proxy di package.json
+      const response = await axios.post('http://localhost:3000/api/auth/login', { username, password });
       const { token } = response.data;
-      localStorage.setItem('authToken', token);
-      onLogin();
-      navigate('/dashboard');  // Arahkan ke dashboard setelah login berhasil
+
+      if (token) {
+        localStorage.setItem('token', token);
+        onLogin(); // Callback untuk mengupdate state login global
+        navigate('/');
+      } else {
+        setError('Invalid server response: token missing.');
+      }
     } catch (error) {
-      setError(error.response?.data?.error || 'Login failed');
+      setError(error.response?.data?.error || 'Login failed.');
     }
   };
 
@@ -36,9 +42,7 @@ function Login({ onLogin }) {
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full p-3 border rounded-md focus:outline-none focus:ring focus:border-[#185cff]"
-              required
-            />
+              className="w-full p-3 border rounded-md focus:outline-none focus:ring focus:border-[#185cff]"/>
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-semibold text-[#607d94]">Password</label>
@@ -47,14 +51,9 @@ function Login({ onLogin }) {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 border rounded-md focus:outline-none focus:ring focus:border-[#185cff]"
-              required
-            />
+              className="w-full p-3 border rounded-md focus:outline-none focus:ring focus:border-[#185cff]"/>
           </div>
-          <button
-            type="submit"
-            className="w-full bg-[#185cff] text-white py-3 rounded-md hover:bg-[#003b6f] transition"
-          >
+          <button type="submit" className="w-full bg-[#185cff] text-white py-3 rounded-md hover:bg-[#003b6f] transition">
             Login
           </button>
         </form>

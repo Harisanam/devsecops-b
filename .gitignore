@@ -1,12 +1,10 @@
 node_modules/
-
+.env
 # Backend
 backend/node_modules/
 backend/.env/
 
 # Database
 database
-compose.yaml".env" 
-".env" 
-".env" 
-.env
+compose.yaml"
+
